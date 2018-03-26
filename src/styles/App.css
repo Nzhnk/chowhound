@@ -1,0 +1,64 @@
+#root{
+	height: 100%;
+}
+#root .ant-layout.ant-layout-has-sider{
+	height: 100%;
+	position: relative;
+}
+
+/*login: ;*/
+#root .ant-form{
+	width: 600px;
+	position: absolute;
+	margin: auto;
+	height: 300px;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+.loginWrap{
+	width: 100%;
+	height: 100%;
+	position: relative;
+	/*background: url('../static/images/form.gif') no-repeat;*/
+	/*background-size: 100% 100%;*/
+}
+#components-form-demo-normal-login .login-form {
+  max-width: 300px;
+}
+#components-form-demo-normal-login .login-form-forgot {
+  float: right;
+}
+#components-form-demo-normal-login .login-form-button {
+  width: 100%;
+}
+.login-form-forgot{
+	float: right;
+	margin: 0 5px 0 0;
+}
+.ant-btn-primary{
+	float: right;
+	margin: 3.5px 0 0;
+}
+
+/*content*/
+#components-layout-demo-side .logo {
+  height: 32px;
+  background: #333;
+  border-radius: 6px;
+  margin: 16px;
+}
+
+#components-layout-demo-side .ant-layout-sider-collapsed .anticon {
+  font-size: 16px;
+  margin-left: 8px;
+}
+
+#components-layout-demo-side .ant-layout-sider-collapsed .nav-text {
+  display: none;
+}
+
+#components-layout-demo-side .ant-layout-sider-collapsed .ant-menu-submenu-vertical > .ant-menu-submenu-title:after {
+  display: none;
+}
