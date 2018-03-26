@@ -3,30 +3,6 @@ import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Butto
 const FormItem = Form.Item;
 const Option = Select.Option;
 
-const residences = [{
-	value: 'zhejiang',
-	label: 'Zhejiang',
-	children: [{
-		value: 'hangzhou',
-		label: 'Hangzhou',
-		children: [{
-			value: 'xihu',
-			label: 'West Lake',
-		}],
-	}],
-}, {
-	value: 'jiangsu',
-	label: 'Jiangsu',
-	children: [{
-		value: 'nanjing',
-		label: 'Nanjing',
-		children: [{
-			value: 'zhonghuamen',
-			label: 'Zhong Hua Men',
-		}],
-	}],
-}];
-
 class Register extends Component {
 	state = {
 		confirmDirty: false,
@@ -38,7 +14,22 @@ class Register extends Component {
 				console.log('Received values of form: ', values);
 			}
 		});
-	}
+
+		// 提交注册信息
+		fetch( 'api/users/isregister', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify( this.props.form.getFieldsValue() )
+		} )
+		.then( response => response.json() )
+		.then( result => {
+			if(result.data.isRegister){
+				this.props.history.push( '/login' );
+			};
+		} );
+	};
 	handleConfirmBlur = (e) => {
 		const value = e.target.value;
 		this.setState({ confirmDirty: this.state.confirmDirty || !!value });
@@ -46,7 +37,7 @@ class Register extends Component {
 	checkPassword = (rule, value, callback) => {
 		const form = this.props.form;
 		if (value && value !== form.getFieldValue('password')) {
-			callback('Two passwords that you enter is inconsistent!');
+			callback('俩次输入的密码不一致，请重新输入!');
 		} else {
 			callback();
 		}
@@ -58,6 +49,9 @@ class Register extends Component {
 		}
 		callback();
 	}
+	goBackLogin = () => {
+		this.props.history.push( '/login' );
+	};
 	render() {
 		const { getFieldDecorator } = this.props.form;
 		const formItemLayout = {
@@ -82,13 +76,7 @@ class Register extends Component {
 				},
 			},
 		};
-		const prefixSelector = getFieldDecorator('prefix', {
-			initialValue: '86',
-		})(
-		<Select className="icp-selector">
-		<Option value="86">+86</Option>
-		</Select>
-		);
+
 		return (
 			<Form onSubmit={this.handleSubmit}>
 			<FormItem
@@ -96,10 +84,8 @@ class Register extends Component {
 			label="用户名"
 			hasFeedback
 			>
-			{getFieldDecorator('text', {
+			{getFieldDecorator('username', {
 				rules: [{
-					type: 'text', message: '用户名不能为空！',
-				}, {
 					required: true, message: '请输入用户名',
 				}],
 			})(
@@ -144,7 +130,7 @@ class Register extends Component {
 			)}
 			</FormItem>
 			<FormItem {...tailFormItemLayout}>
-			<Button>返回</Button>
+			<Button onClick={this.goBackLogin}>返回</Button>
 			<Button type="primary" htmlType="submit">提交</Button>
 			</FormItem>
 			</Form>
