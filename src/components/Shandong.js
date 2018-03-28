@@ -1,59 +1,103 @@
-import React, { Component } from 'react';
-import { Layout, Breadcrumb, Row, Col, Button, Icon } from 'antd';
-const { Content } = Layout;
+// export default Shandong;
 
-class Shandong extends Component{
-    constructor(props){
-        super(props)
-        this.state={
-            list:[]
-        }
-    }
-    render(){
-        return (
-            <Layout style={{ padding: '0 24px 24px 8px' }}>
-                <Breadcrumb style={{ margin: '12px 0' }}>
-                    <Breadcrumb.Item>Home</Breadcrumb.Item>
-                    <Breadcrumb.Item>鲁菜</Breadcrumb.Item>
-                </Breadcrumb>
-                <Content style={{ background: '#fae8c8', padding: 24, margin: 0, minHeight: 280 }}>
-                    <div calss="ls-food">
-                        <Row type="flex" justify="start"> 
-                            {
-                                this.state.list.map((item,index)=>{
-                                    return(
-                                        <Col span={6} style={{marginBottom:'10px',}}>
-                                        <div style={{width:'232px',background:'#fff',borderRadius:'5px'}}>
-                                            <img style={{width:'232px',height:'232px'}} src={'http://10.9.163.109:3100/imgUploads/'+item.gourmetPic} />
-                                            <h3 style={{height:'24px', lineHeight:'24px'}}>{item.gourmetName}</h3>
-                                            <p style={{minHeight:'22px', lineHeight:'22px',overflow:'hidden','text-overflow':'ellipsis',display: '-webkit-box','-webkit-line-clamp': 2,'-webkit-box-orient': 'vertical'}}>{item.mattersAtt}</p>
-                                            <div style={{height:'22px',lineHeight:'22px'}}><Icon type="pushpin" />{item.tasteDescri}</div>
-                                            <div style={{display:'flex', 'align-items': 'center','justify-content':'space-between'}}>
-                                                <Button type="danger">删除</Button>
-                                                <Button type="primary" style={{marginTop: 0}}>编辑</Button>                                
-                                            </div>
-                                        </div>
-                                        </Col>
-                                    )
-                                })
-                            }
-                        </Row>
-                    </div>
-                </Content>
-            </Layout>         
-        )
-    }
-    componentDidMount(){
-        fetch('/api/cuisine/area/51')
-        .then(response=>response.json())
-        .then(result=>{
-            console.log(JSON.stringify(result))
-            this.setState({
-                list:result.data
-            })
-        })
+import React, {Component} from 'react'
+
+import { Table, Button } from 'antd';
+
+import { connect } from 'react-redux'
+
+const columns = [{
+    title: '美食图片',
+    dataIndex: 'gourmetPic',
+    key: 'gourmetPic',
+}, {
+    title: '美食名称',
+    dataIndex: 'gourmetName',
+    key: 'gourmetName',
+}, {
+    title:'美食地区',
+    dataIndex:'gourmetArea',
+    key:'gourmetArea'
+},{
+    title: '美食做法',
+    dataIndex: 'gourmetPrac',
+    key: 'gourmetPrac',
+}, {
+    title: '口味描述',
+    dataIndex: 'tasteDescri',
+    key: 'tasteDescri',
+}, {
+    title: '上传时间',
+    dataIndex: 'uploadTime',
+    key: 'uploadTime',
+}, {
+    title: '操作',
+    key: 'action',
+    render: () => (
+        <div>
+            <Button type="danger" className="positionChange" ghost>删除</Button>
+            <Button type="primary" className="positionChange" ghost>编辑</Button>
+        </div>
+    ),
+}];
+
+const mapStateToProps = (state) => {
+    return {
+        storeList: state
     }
 }
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        loadData: () => {
+            dispatch(() => {
+                fetch('/api/cuisine/area/51')
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result.data)
+                    dispatch({
+                        type: 'GET_DATA',
+                        dataList: result.data.map(({_id, gourmetPic, gourmetName, gourmetPrac, tasteDescri,gourmetArea,uploadTime,mattersAtt}) => ({
+                            key: _id,
+                            gourmetPic:<img src={'http://10.9.163.109:3100/imgUploads/'+gourmetPic} width="70"/>,
+                            gourmetName,
+                            gourmetPrac,
+                            tasteDescri,
+                            gourmetArea,
+                            uploadTime,
+                            mattersAtt
+                        }))
+                    })
+                })
+            })
+        }
+    }
+}
 
-export default Shandong;
+class Shandong extends Component {
+    constructor(props) {
+        super(props)
+        this.state={
+            dataList:''
+        }
+    }
+    componentDidMount() {
+        this.props.loadData()
+    }
+
+    render() {
+        return (
+            <Table
+                columns={columns}
+                bordered
+                expandedRowRender={record => <p>注意事项：{record.mattersAtt}</p>}
+                pagination={{
+                defaultPageSize: 5
+                }}
+                dataSource={this.props.storeList} 
+            />
+        )
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Shandong)
