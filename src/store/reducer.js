@@ -1,7 +1,7 @@
 export default ( state = [], action ) => {
 	switch(action.type){
-		case 'NICE':
-			return state;
+		case 'GET_DATA':
+			return action.dataList;
 		default:
 			return [];
 	}

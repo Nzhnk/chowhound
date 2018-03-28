@@ -78,7 +78,7 @@ class Register extends Component {
 		};
 
 		return (
-			<Form onSubmit={this.handleSubmit}>
+			<Form onSubmit={this.handleSubmit} className="selfForm">
 			<FormItem
 			{...formItemLayout}
 			label="用户名"
