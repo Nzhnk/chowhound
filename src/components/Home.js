@@ -8,6 +8,8 @@ import CuizineAdd from './CuisineAdd.js';
 
 import Jiangsu from './Jiangsu.js';
 
+import Shandong from './Shandong.js';
+import '../styles/App.css'
 const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
@@ -65,11 +67,9 @@ class Home extends Component {
 					<Content style={{ margin: '0 16px' }}>
 						<Switch>
 							<Route path='/home/sichuan' exact component={ Sichuan }></Route>
-
 							<Route path='/home/add' exact component={ CuizineAdd }></Route>
-
 							<Route path='/home/jiangsu' exact component={ Jiangsu }></Route>
-
+							<Route path='/home/shandong' exact component={ Shandong }></Route>
 						</Switch>
 					</Content>
 					<Footer style={{ textAlign: 'center' }}>吃货美食城 ©2018 Created by 好程序员5班角落一组</Footer>

@@ -63,6 +63,12 @@
   display: none;
 }
 
+
 .positionChange{
 	margin: 0;
+}
+.lsItem{
+	width: 232px;
+	background: rgb(255, 255, 255);
+	border-radius: 5px;
 }
