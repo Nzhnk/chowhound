@@ -1,8 +1,8 @@
 export default ( state = [], action ) => {
 	switch(action.type){
 		case 'NICE':
-			return state;
+			return action.list
 		default:
-			return [];
+			return state
 	}
 };
