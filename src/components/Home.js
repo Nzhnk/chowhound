@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom'
 import { Layout, Menu, Icon } from 'antd';
+import { NavLink, Link } from 'react-router-dom'
 import Sichuan from './Sichuan.js';
+
+import CuizineAdd from './CuisineAdd.js';
+
+import Jiangsu from './Jiangsu.js';
+
 import Shandong from './Shandong.js';
-import { NavLink } from 'react-router-dom'
 import '../styles/App.css'
 const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
@@ -33,12 +38,7 @@ class Home extends Component {
 					 mode={this.state.mode}
 					 defaultSelectedKeys={['6']}
 					>
-						<Menu.Item key="1">
-							<span>
-								<Icon type="home" />
-								<span className="nav-text">主页</span>
-							</span>
-						</Menu.Item>
+						<Menu.Item key="1"><NavLink to='/home'  exact><Icon type="home" />主页</NavLink></Menu.Item>
 						<SubMenu
 						 key="sub1"
 						 title={<span><Icon type="bars" /><span className="nav-text">菜系分类</span></span>}
@@ -52,12 +52,7 @@ class Home extends Component {
 							<Menu.Item key="8"><NavLink to='/home/hunan' exact>湘菜</NavLink></Menu.Item>
 							<Menu.Item key="9"><NavLink to='/home/anhui' exact>徽菜</NavLink></Menu.Item>
 						</SubMenu>
-						<Menu.Item key="10">
-							<span>
-								<Icon type="home" />
-								<span className="nav-text">添加</span>
-							</span>
-						</Menu.Item>
+						<Menu.Item key="10"><NavLink to='/home/add'  exact><Icon type="file-add" />添加</NavLink></Menu.Item>
 						<SubMenu
 						 key="sub2"
 						 title={<span><Icon type="team" /><span className="nav-text">Team</span></span>}
@@ -72,6 +67,8 @@ class Home extends Component {
 					<Content style={{ margin: '0 16px' }}>
 						<Switch>
 							<Route path='/home/sichuan' exact component={ Sichuan }></Route>
+							<Route path='/home/add' exact component={ CuizineAdd }></Route>
+							<Route path='/home/jiangsu' exact component={ Jiangsu }></Route>
 							<Route path='/home/shandong' exact component={ Shandong }></Route>
 						</Switch>
 					</Content>

@@ -7,7 +7,7 @@
 }
 
 /*login: ;*/
-#root .ant-form{
+#root .selfForm{
 	width: 600px;
 	position: absolute;
 	margin: auto;
@@ -61,6 +61,11 @@
 
 #components-layout-demo-side .ant-layout-sider-collapsed .ant-menu-submenu-vertical > .ant-menu-submenu-title:after {
   display: none;
+}
+
+
+.positionChange{
+	margin: 0;
 }
 .lsItem{
 	width: 232px;

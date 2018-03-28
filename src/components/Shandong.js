@@ -2,7 +2,7 @@
 
 import React, {Component} from 'react'
 
-import { Table, Icon, Button } from 'antd';
+import { Table, Button } from 'antd';
 
 import { connect } from 'react-redux'
 
@@ -15,6 +15,10 @@ const columns = [{
     dataIndex: 'gourmetName',
     key: 'gourmetName',
 }, {
+    title:'美食地区',
+    dataIndex:'gourmetArea',
+    key:'gourmetArea'
+},{
     title: '美食做法',
     dataIndex: 'gourmetPrac',
     key: 'gourmetPrac',
@@ -23,20 +27,24 @@ const columns = [{
     dataIndex: 'tasteDescri',
     key: 'tasteDescri',
 }, {
+    title: '上传时间',
+    dataIndex: 'uploadTime',
+    key: 'uploadTime',
+}, {
     title: '操作',
     key: 'action',
-    render: (text, record) => (
-        <span>
-        <Button type="primary">编辑</Button>
-        <Button type="danger">删除</Button>
-        </span>
+    render: () => (
+        <div>
+            <Button type="danger" className="positionChange" ghost>删除</Button>
+            <Button type="primary" className="positionChange" ghost>编辑</Button>
+        </div>
     ),
 }];
 
 const mapStateToProps = (state) => {
-  return {
-    storeList: state
-  }
+    return {
+        storeList: state
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -48,13 +56,16 @@ const mapDispatchToProps = (dispatch) => {
                 .then(result => {
                     console.log(result.data)
                     dispatch({
-                        type: 'NICE',
-                        list: result.data.map(({id, gourmetPic, gourmetName, gourmetPrac, tasteDescri}) => ({
-                            key: id,
+                        type: 'GET_DATA',
+                        dataList: result.data.map(({_id, gourmetPic, gourmetName, gourmetPrac, tasteDescri,gourmetArea,uploadTime,mattersAtt}) => ({
+                            key: _id,
                             gourmetPic:<img src={'http://10.9.163.109:3100/imgUploads/'+gourmetPic} width="70"/>,
                             gourmetName,
                             gourmetPrac,
-                            tasteDescri
+                            tasteDescri,
+                            gourmetArea,
+                            uploadTime,
+                            mattersAtt
                         }))
                     })
                 })
@@ -64,26 +75,29 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class Shandong extends Component {
-  constructor(props) {
-    super(props)
-    this.state={
-        list:''
+    constructor(props) {
+        super(props)
+        this.state={
+            dataList:''
+        }
     }
-  }
-  componentDidMount() {
-    this.props.loadData()
-  }
+    componentDidMount() {
+        this.props.loadData()
+    }
 
-  render() {
-    return (
-      <Table
-        columns={columns}
-        pagination={{
-          defaultPageSize: 5
-        }}
-        dataSource={this.props.storeList} />
-    )
-  }
+    render() {
+        return (
+            <Table
+                columns={columns}
+                bordered
+                expandedRowRender={record => <p>注意事项：{record.mattersAtt}</p>}
+                pagination={{
+                defaultPageSize: 5
+                }}
+                dataSource={this.props.storeList} 
+            />
+        )
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Shandong)
