@@ -82,8 +82,9 @@ module.exports = function(proxy, allowedHost) {
     public: allowedHost,
     proxy: {
         '/api': {
-            target: 'http://localhost:3100'
+            target: 'http://10.9.163.109:3100'
         }
+
     },
     before(app) {
       // This lets us open files from the runtime error overlay.
