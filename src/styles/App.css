@@ -62,3 +62,8 @@
 #components-layout-demo-side .ant-layout-sider-collapsed .ant-menu-submenu-vertical > .ant-menu-submenu-title:after {
   display: none;
 }
+.lsItem{
+	width: 232px;
+	background: rgb(255, 255, 255);
+	border-radius: 5px;
+}
