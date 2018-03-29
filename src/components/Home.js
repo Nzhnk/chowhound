@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom'
 import { Layout, Menu, Icon } from 'antd';
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import Sichuan from './Sichuan.js';
 
 import CuizineAdd from './CuisineAdd.js';

@@ -18,19 +18,19 @@ class Shandong extends Component{
                 </Breadcrumb>
                 <Content style={{ background: '#fae8c8', padding: 24, margin: 0, minHeight: 280 }}>
                     <div calss="ls-food">
-                        <Row type="flex" justify="start"> 
+                        <Row type="flex" justify="start">
                             {
                                 this.state.list.map((item,index)=>{
                                     return(
                                         <Col span={6} style={{marginBottom:'10px',}}>
                                         <div style={{width:'232px',background:'#fff',borderRadius:'5px'}}>
-                                            <img style={{width:'232px',height:'232px'}} src={'http://10.9.163.109:3100/imgUploads/'+item.gourmetPic} />
+                                            <img style={{width:'232px',height:'232px'}} src={'http://10.9.163.109:3100/imgUploads/'+item.gourmetPic} alt=""/>
                                             <h3 style={{height:'24px', lineHeight:'24px'}}>{item.gourmetName}</h3>
                                             <p style={{minHeight:'22px', lineHeight:'22px',overflow:'hidden','text-overflow':'ellipsis',display: '-webkit-box','-webkit-line-clamp': 2,'-webkit-box-orient': 'vertical'}}>{item.mattersAtt}</p>
                                             <div style={{height:'22px',lineHeight:'22px'}}><Icon type="pushpin" />{item.tasteDescri}</div>
                                             <div style={{display:'flex', 'align-items': 'center','justify-content':'space-between'}}>
                                                 <Button type="danger">删除</Button>
-                                                <Button type="primary" style={{marginTop: 0}}>编辑</Button>                                
+                                                <Button type="primary" style={{marginTop: 0}}>编辑</Button>
                                             </div>
                                         </div>
                                         </Col>
@@ -40,7 +40,7 @@ class Shandong extends Component{
                         </Row>
                     </div>
                 </Content>
-            </Layout>         
+            </Layout>
         )
     }
     componentDidMount(){
