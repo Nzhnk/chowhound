@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { Button } from 'antd';
+import { NavLink } from 'react-router-dom'
 
 
 export default ({ entities, onDeletePost }) => {
@@ -21,7 +22,7 @@ export default ({ entities, onDeletePost }) => {
 		              	</div>
 		            </div>
 		            <Button onClick={ () => onDeletePost(item.id) } type="danger">删除</Button>
-		            <Button>编辑</Button>
+		            <Button><NavLink to='/home/itemlist' exact>编辑</NavLink></Button>
 	            </div>
 	        	)
 	        	

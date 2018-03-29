@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 import { Layout, Menu, Icon } from 'antd';
 import Sichuan from './Sichuan.js';
 import Guangdong from './Guangdong.js';
+import GuangdongItemEdit from './GuangdongItemEdit.js';
 
 import { NavLink } from 'react-router-dom'
 const { Header, Content, Footer, Sider } = Layout;
@@ -73,6 +74,7 @@ class Home extends Component {
 						<Switch>
 							<Route path='/home/sichuan' exact component={ Sichuan }></Route>
 							<Route path='/home/guangdong' exact component={ Guangdong }></Route>
+							<Route path='/home/itemedit' exact component={ GuangdongItemEdit}></Route>
 						</Switch>
 					</Content>
 					<Footer style={{ textAlign: 'center' }}>吃货美食城 ©2018 Created by 好程序员5班角落一组</Footer>
