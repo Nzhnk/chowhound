@@ -29,6 +29,7 @@ const warning = () => {
 const props = {
 	name: 'gourmetPic',
 	listType: 'picture',
+	action: '/api/cuisine/add',
 	beforeUpload: ( file, fileList ) => {
 		return false;
 	}
@@ -59,9 +60,6 @@ class CuisineAdd extends Component {
 				console.log(this.props.form.getFieldsValue())
 				alert('添加成功!');
 				this.props.form.resetFields();
-				this.props.form.setFieldsValue({
-					upload: ''
-				});
 			}
 		} )
 	};
