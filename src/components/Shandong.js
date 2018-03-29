@@ -32,10 +32,10 @@ const columns = [{
     key: 'uploadTime',
 }, {
     title: '操作',
-    key: 'action',
+    dataIndex: '',
     render: () => (
         <div>
-            <Button type="danger" className="positionChange" ghost>删除</Button>
+            <Button type="danger" onClick={this.onClick} className="positionChange">删除</Button>
             <Button type="primary" className="positionChange" ghost>编辑</Button>
         </div>
     ),
@@ -54,7 +54,7 @@ const mapDispatchToProps = (dispatch) => {
                 fetch('/api/cuisine/area/51')
                 .then(response => response.json())
                 .then(result => {
-                    console.log(result.data)
+                    // console.log(result.data)
                     dispatch({
                         type: 'GET_DATA',
                         dataList: result.data.map(({_id, gourmetPic, gourmetName, gourmetPrac, tasteDescri,gourmetArea,uploadTime,mattersAtt}) => ({
@@ -78,13 +78,15 @@ class Shandong extends Component {
     constructor(props) {
         super(props)
         this.state={
-            dataList:''
+            dataList:'',
         }
     }
     componentDidMount() {
         this.props.loadData()
     }
-
+    onClick() {
+        console.log('adsfas')
+    }
     render() {
         return (
             <Table
