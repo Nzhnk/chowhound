@@ -60,6 +60,7 @@ class CuisineAdd extends Component {
 				console.log(this.props.form.getFieldsValue())
 				alert('修改成功!');
 				this.props.form.resetFields();
+				this.props.history.go( -1 );
 			}
 		} )
 	};
