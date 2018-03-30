@@ -1,53 +1,41 @@
 import React, { Component } from 'react';
-import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, Upload, message } from 'antd';
+import { Form, Input, Icon, Button, Upload } from 'antd';
 const FormItem = Form.Item;
-const Option = Select.Option;
-const Dragger = Upload.Dragger;
 
-/*const props = {
-	name: 'file',
-	multiple: false,
-	showUploadList: false,
-	action: '/api/cuisine/add',
-	customRequest(){},
-	onChange(info) {
-		const status = info.file.status;
-		if (status !== 'uploading') {
-			console.log(info.file, info.fileList);
-		}
-		if (status === 'done') {
-			message.success(`${info.file.name} 上传成功!`);
-		} else if (status === 'error') {
-			message.error(`${info.file.name} 上传失败!`);
-		}
-	},
+/*const success = () => {
+  message.success('This is a message of success');
+};
+
+const error = () => {
+  message.error('This is a message of error');
+};
+
+const warning = () => {
+  message.warning('This is message of warning');
 };
 */
-const residences = [{
-	value: 'zhejiang',
-	label: 'Zhejiang',
-	children: [{
-		value: 'hangzhou',
-		label: 'Hangzhou',
-		children: [{
-			value: 'xihu',
-			label: 'West Lake',
-		}],
-	}],
-}, {
-	value: 'jiangsu',
-	label: 'Jiangsu',
-	children: [{
-		value: 'nanjing',
-		label: 'Nanjing',
-		children: [{
-			value: 'zhonghuamen',
-			label: 'Zhong Hua Men',
-		}],
-	}],
-}];
+// const props = {
+// 	name: 'gourmetPic',
+// 	multiple: true,
+// 	showUploadList: true,
+// 	listType: 'picture',
+// 	accept: "image/*",
+// 	action: '/api/cuisine/add',
+// 	beforeUpload: ( file, fileList ) => {
+// 		return false;
+// 	}
+// };
 
-class CuisineAdd extends React.Component {
+const props = {
+	name: 'gourmetPic',
+	listType: 'picture',
+	action: '/api/cuisine/add'
+	// beforeUpload: ( file, fileList ) => {
+	// 	return false;
+	// }
+};
+
+class CuisineAdd extends Component {
 	state = {
 		confirmDirty: false,
 	};
@@ -58,10 +46,23 @@ class CuisineAdd extends React.Component {
 				console.log('Received values of form: ', values);
 			}
 		});
-
-
-
-	}
+		// 上传数据
+		fetch( '/api/cuisine/add', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify( this.props.form.getFieldsValue() )
+		} )
+		.then( response => response.json() )
+		.then( result => {
+			if(result){
+				console.log(this.props.form.getFieldsValue())
+				alert('添加成功!');
+				this.props.form.resetFields();
+			}
+		} )
+	};
 	handleConfirmBlur = (e) => {
 		const value = e.target.value;
 		this.setState({ confirmDirty: this.state.confirmDirty || !!value });
@@ -115,7 +116,13 @@ class CuisineAdd extends React.Component {
 					required: true, message: '请上传美食图片！',
 				}],
 			})(
-			<Input type="file" />
+			<div>
+			<Upload {...props}>
+			<Button>
+			<Icon type="upload" /> 上传图片
+			</Button>
+			</Upload>
+			</div>
 			)}
 			</FormItem>
 			<FormItem
@@ -171,7 +178,7 @@ class CuisineAdd extends React.Component {
 			)}
 			</FormItem>
 			<FormItem {...tailFormItemLayout}>
-			<Button type="default">返回</Button>
+			<Button type="default"><a href="javascript:history.back()">返回</a></Button>
 			<Button type="primary" htmlType="submit">提交</Button>
 			</FormItem>
 			</Form>
