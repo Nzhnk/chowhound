@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Table, Button, Icon } from 'antd';
+import { NavLink } from 'react-router-dom';
 
 const columns = [
 	{
@@ -38,12 +39,29 @@ const columns = [
 		key: 'action',
 		render: ( text, record ) => (
 			<span>
-				<Button type="primary" ghost className="positionChange"><Icon type="edit" />编辑</Button>
-				<Button type="danger" ghost className="positionChange"><Icon type="delete" />删除</Button>
+				<NavLink to={ '/home/edit/' + text.key } className="ant-btn positionChange ant-btn-primary ant-btn-background-ghost"><Icon type="edit" />编辑</NavLink>
+				<Button type="danger" ghost className="positionChange" onClick={() => handleDelete(text.key)} ><Icon type="delete" />删除</Button>
 			</span>
-		),
+		)
 	}
 ];
+
+
+function handleDelete( cuisineID ){
+	fetch( '/api/cuisine/remove/' + cuisineID, {
+		method: 'GET'
+	} )
+	.then( response => response.json() )
+	.then( result => {
+		if( result.data ){
+			// App.dispatch({
+			// 	type: DELETE,
+			// 	id: cuisineID
+			// })
+		}
+	} )
+};
+
 
 const mapStateToProps = ( state ) => {
 	return {
@@ -87,7 +105,6 @@ const mapDispatchToProps = ( dispatch ) => {
 		}
 	}
 }
-
 
 class Sichuan extends Component {
 	constructor( props ){

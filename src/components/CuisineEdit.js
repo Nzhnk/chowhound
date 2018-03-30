@@ -1,23 +1,45 @@
 import React, { Component } from 'react';
-import { Form, Input, Icon, Button, Upload, Select } from 'antd';
+import { Form, Input, Icon, Button, Upload } from 'antd';
 const FormItem = Form.Item;
-const Option = Select.Option;
-
-function handleChange(value) {
-  console.log(`selected ${value}`);
-}
 
 const props = {
 	name: 'gourmetPic',
 	listType: 'picture',
-	action: '/api/cuisine/add'
+	action: '/api/cuisine/edit',
+	beforeUpdate: ( file, fileList ) => {
+		return false;
+	}
 };
 
 class CuisineAdd extends Component {
+	constructor( props ){
+		super( props );
+		// console.log(this.props.match.params.cuisineID)
+	};
 	state = {
 		confirmDirty: false,
 	};
+	componentWillMount(){
+		const cuisineID = this.props.match.params.cuisineID;
+		fetch( '/api/cuisine/single/' + cuisineID, {
+			method: 'GET'
+		} )
+		.then( response => response.json() )
+		.then( result => {
+			console.log( result );
+			this.props.form.setFieldsValue({
+				gourmetName: result.data.gourmetName,
+				gourmetPic: result.data.gourmetPic,
+				gourmetArea: result.data.gourmetArea,
+				gourmetPrac: result.data.gourmetPrac,
+				tasteDescri: result.data.tasteDescri,
+				mattersAtt: result.data.mattersAtt
+			})
+		} )
+
+	};
 	handleSubmit = (e) => {
+		const cuisineID = this.props.match.params.cuisineID;
 		e.preventDefault();
 		this.props.form.validateFieldsAndScroll((err, values) => {
 			if (!err) {
@@ -25,7 +47,7 @@ class CuisineAdd extends Component {
 			}
 		});
 		// 上传数据
-		fetch( '/api/cuisine/add', {
+		fetch( '/api/cuisine/edit/'+cuisineID, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -36,7 +58,7 @@ class CuisineAdd extends Component {
 		.then( result => {
 			if(result){
 				console.log(this.props.form.getFieldsValue())
-				alert('添加成功!');
+				alert('修改成功!');
 				this.props.form.resetFields();
 			}
 		} )
@@ -113,20 +135,7 @@ class CuisineAdd extends Component {
 					required: true, message: '请输入美食地区！',
 				}],
 			})(
-			<Select
-			showSearch
-			style={{ width: 200 }}
-			placeholder="请选择地区"
-			optionFilterProp="children"
-			onChange={handleChange}
-			filterOption={(input, option) => option.props.value.toLowerCase().indexOf(input.toLowerCase()) >= 0}
-			>
-			<Option value="四川">四川</Option>
-			<Option value="山东">山东</Option>
-			<Option value="江苏">江苏</Option>
-			<Option value="广东">广东</Option>
-			</Select>
-			// <Input type="text" />
+			<Input type="text" />
 			)}
 			</FormItem>
 			<FormItem
@@ -169,7 +178,7 @@ class CuisineAdd extends Component {
 			)}
 			</FormItem>
 			<FormItem {...tailFormItemLayout}>
-			<Button type="default"><a href="javascript:history.back()">返回</a></Button>
+			<a href="javascript:history.back()" className="ant-btn ant-btn-default">返回</a>
 			<Button type="primary" htmlType="submit">提交</Button>
 			</FormItem>
 			</Form>

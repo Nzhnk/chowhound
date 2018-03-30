@@ -7,6 +7,7 @@ import Guangdong from './Guangdong.js';
 
 
 import CuizineAdd from './CuisineAdd.js';
+import CuizineEdit from './CuisineEdit.js';
 
 import Jiangsu from './Jiangsu.js';
 
@@ -16,6 +17,9 @@ const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
 class Home extends Component {
+	constructor(props){
+		super(props);
+	};
 	state = {
 		collapsed: false,
 		mode: 'inline',
@@ -71,6 +75,7 @@ class Home extends Component {
 							<Route path='/home/sichuan' exact component={ Sichuan }></Route>
 							<Route path='/home/guangdong' exact component={ Guangdong }></Route>
 							<Route path='/home/add' exact component={ CuizineAdd }></Route>
+							<Route path='/home/edit/:cuisineID' exact component={ CuizineEdit }></Route>
 							<Route path='/home/jiangsu' exact component={ Jiangsu }></Route>
 							<Route path='/home/shandong' exact component={ Shandong }></Route>
 						</Switch>
