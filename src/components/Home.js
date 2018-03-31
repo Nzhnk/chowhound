@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom'
 import { Layout, Menu, Icon } from 'antd';
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import Sichuan from './Sichuan.js';
+import Guangdong from './Guangdong.js';
+
 
 import CuizineAdd from './CuisineAdd.js';
 
@@ -67,6 +69,7 @@ class Home extends Component {
 					<Content style={{ margin: '0 16px' }}>
 						<Switch>
 							<Route path='/home/sichuan' exact component={ Sichuan }></Route>
+							<Route path='/home/guangdong' exact component={ Guangdong }></Route>
 							<Route path='/home/add' exact component={ CuizineAdd }></Route>
 							<Route path='/home/jiangsu' exact component={ Jiangsu }></Route>
 							<Route path='/home/shandong' exact component={ Shandong }></Route>

@@ -13,7 +13,7 @@ const columns = [
 		dataIndex: 'gourmetPic',
 		render: (gourmetPic) => {
 			return (
-				<img src={'http://10.9.163.109:3100/imgUploads/' + gourmetPic} width='100' height='100' />
+				<img src={'http://10.9.163.109:3100/imgUploads/' + gourmetPic} width='100' height='100' alt="" />
 			);
 		}
 	},

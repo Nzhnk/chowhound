@@ -60,7 +60,6 @@ const mapDispatchToProps = ( dispatch ) => {
 				} )
 				.then( response => response.json() )
 				.then( result => {
-					console.log(result);
 					dispatch({
 						type: 'GET_DATA',
 						dataList: result.data.map(({
@@ -75,7 +74,7 @@ const mapDispatchToProps = ( dispatch ) => {
 						}) => ({
 							key: _id,
 							gourmetName,
-							gourmetPic: <img src={'http://localhost:3100/imgUploads/' + gourmetPic} width="100" height="100"/>,
+							gourmetPic: <img src={'http://10.9.163.109:3100/imgUploads/' + gourmetPic} width="100" height="100" alt=""/>,
 							gourmetArea,
 							gourmetPrac,
 							tasteDescri,
