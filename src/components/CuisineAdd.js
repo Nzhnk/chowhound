@@ -11,9 +11,18 @@ const props = {
 	name: 'gourmetPic',
 	listType: 'picture',
 	action: '/api/cuisine/add'
+	// beforeUpload: ( file, fileList ) => {
+	// 	return false;
+	// }
 };
 
+
 class CuisineAdd extends Component {
+	constructor(props,context) {
+	    super(props)
+	    
+	    console.log(this.props)
+	}
 	state = {
 		confirmDirty: false,
 	};
@@ -45,7 +54,9 @@ class CuisineAdd extends Component {
 		const value = e.target.value;
 		this.setState({ confirmDirty: this.state.confirmDirty || !!value });
 	}
+
 	render() {
+
 		const { getFieldDecorator } = this.props.form;
 		const formItemLayout = {
 			labelCol: {

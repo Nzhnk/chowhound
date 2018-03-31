@@ -1,17 +1,20 @@
 import React from 'react'
 
 import { Button } from 'antd';
+import { NavLink } from 'react-router-dom';
 
 
-export default ({ entities, onDeletePost }) => {
+
+export default ({ entities, onDeletePost, onEditList}) => {
 
   return (
     <div className="menu-page-grids">
     	{
 	        entities.map((item) => (
-				<div className="menu-grids-info-out" key={ item.id }>
+				<div className="menu-grids-info-out" key={ item._id }>
 					<div className="menu-grids-info">
-		              	<img src={item.gourmetPic} alt="" title=""/>
+					<img src={'http://10.9.163.109:3100/imgUploads/'+item.gourmetPic} />
+
 		              	<h4>{item.gourmetArea}</h4>
 		              	<p className="hid">{item.tasteDescri}</p>
 		              	<p className="cook">做法：{item.gourmetPrac}</p>
@@ -20,11 +23,12 @@ export default ({ entities, onDeletePost }) => {
 		                	<h5>{item.gourmetName}</h5>
 		              	</div>
 		            </div>
-		            <Button onClick={ () => onDeletePost(item.id) } type="danger">删除</Button>
-		            <Button>编辑</Button>
+		            <Button onClick={ () => onDeletePost(item._id) } type="danger">删除</Button>
+		            <Button onClick={ () => onEditList(item._id) }><NavLink to={ '/home/edit/' + item._id } >编辑</NavLink></Button>
+		            
+
 	            </div>
 	        	)
-	        	
 	        )
 	    }
     </div>

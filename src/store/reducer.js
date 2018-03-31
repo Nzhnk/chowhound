@@ -1,13 +1,5 @@
 const defaultState = [
-	{
-		gourmetName: 'Loading...',
-		gourmetPic: 'Loading...',
-		gourmetArea: 'Loading...',
-		gourmetPrac: 'Loading...',
-		tasteDescri: 'Loading...',
-		mattersAtt: 'Loading...',
-		uploadTime: 'Loading...'
-	}
+	
 ];
 
 export default ( state = defaultState, action ) => {
@@ -18,6 +10,9 @@ export default ( state = defaultState, action ) => {
 	        	...action.list
 			];
 		case 'DELETE':
+		    return state.filter((item) => item._id !== action._id);
+		case 'EDITLIST':
+		    return state.filter((item) => item._id == action._id);
 		    return state.filter((item) => {
 		    	if(item.key !== action.id) {
 		    		return item;
