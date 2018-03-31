@@ -30,3 +30,12 @@ master		master
 添加接口
 /api/cuisine/add
 
+删除接口
+/api/cuisine/remove/:id
+
+编辑接口
+/api/cuisine/single/:id
+
+搜索接口
+/api/cuisine/serach/
+

@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom'
 import { Layout, Menu, Icon } from 'antd';
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
+
+import Welcome from './Welcome.js';
 import Sichuan from './Sichuan.js';
 import Guangdong from './Guangdong.js';
-
-
 import CuizineAdd from './CuisineAdd.js';
 import CuizineEdit from './CuisineEdit.js';
-
 import Jiangsu from './Jiangsu.js';
-
 import Shandong from './Shandong.js';
-import '../styles/App.css'
+
+import '../styles/App.css';
 const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
@@ -71,6 +70,7 @@ class Home extends Component {
 				<Layout>
 					<Header style={{ background: '#fff', padding: 0 }} />
 					<Content style={{ margin: '0 16px' }}>
+						<Welcome/>
 						<Switch>
 							<Route path='/home/sichuan' exact component={ Sichuan }></Route>
 							<Route path='/home/guangdong' exact component={ Guangdong }></Route>
