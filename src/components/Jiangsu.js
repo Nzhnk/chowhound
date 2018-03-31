@@ -33,6 +33,20 @@ const mapDispatchToProps = (dispatch) => {
 					})
 				})
 			})
+		},
+		deleteData: (key) => {
+			fetch('/api/cuisine/remove/' + key, {
+				method: 'get'
+			})
+			.then(response => response.json())
+			.then(result => {
+				if (result.data) {
+					dispatch({
+						type: 'DELETE',
+						id: key
+					})
+				}
+			})
 		}
 	}
 }
@@ -45,10 +59,12 @@ class Jiangsu extends Component {
 				{
 					title: '美食名称',
 					dataIndex: 'gourmetName',
+					width: '10%'
 				},
 				{
 					title: '美食图片',
 					dataIndex: 'gourmetPic',
+					width: '10%',
 					render: (gourmetPic) => {
 						return (
 							<img src={'http://10.9.163.109:3100/imgUploads/' + gourmetPic} width='100' height='100' alt="" />
@@ -58,6 +74,7 @@ class Jiangsu extends Component {
 				{
 					title: '美食地区',
 					dataIndex: 'gourmetArea',
+					width: '10%',
 					sorter: true,
 				},
 				{
@@ -67,6 +84,7 @@ class Jiangsu extends Component {
 				{
 					title: '口味描述',
 					dataIndex: 'tasteDescri',
+					width: '10%',
 					sorter: true,
 				},
 				{
@@ -76,16 +94,20 @@ class Jiangsu extends Component {
 				{
 					title: '上传时间',
 					dataIndex: 'uploadTime',
+					width: '10%',
 					sorter: true,
 				},
 				{
 					title: '操作',
 					dataIndex: '',
+					width: '15%',
 					render: (text) => {
 						return (
 							<div>
-								<NavLink to={'/home/edit/' + text.key} className="ant-btn positionChange ant-btn-primary ant-btn-background-ghost">编辑</NavLink>
-								<Button type="danger" ghost className="positionChange" onClick={() => this.deleteData()}>删除</Button>
+								<NavLink style={{float:'left'}} to={'/home/edit/' + text.key} className="ant-btn positionChange ant-btn-primary ant-btn-background-ghost">编辑</NavLink>
+								{' '}
+								{' '}
+								<Button type="danger" ghost className="positionChange" onClick={() => this.props.deleteData(text.key)}>删除</Button>
 							</div>
 						);
 					}
@@ -96,10 +118,6 @@ class Jiangsu extends Component {
 
 	componentDidMount() {
 		this.props.getData();
-	}
-
-	deleteData() {
-		console.log(this.props.cuisineList)
 	}
 
 	render() {
