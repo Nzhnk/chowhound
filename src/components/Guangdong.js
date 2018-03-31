@@ -28,13 +28,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     onDeletePost: (_id) => {
       dispatch({
-        type: 'DELETE',
-        _id
-      })
-    },
-    onEditList: (_id) => {
-      dispatch({
-        type: 'EDITLIST',
+        type: 'GUANGDONG_DELETE',
         _id
       })
     }
@@ -75,7 +69,6 @@ class Guangdong extends Component {
         <GuangdongFoodList
           entities={entities}
           onDeletePost={ onDeletePost }
-          onEditList={ onEditList }
         />
       </div>
     )

@@ -5,8 +5,8 @@ import { NavLink } from 'react-router-dom';
 
 
 
-export default ({ entities, onDeletePost, onEditList}) => {
-
+export default ({ entities, onDeletePost}) => {
+	console.log(entities)
   return (
     <div className="menu-page-grids">
     	{
@@ -24,8 +24,8 @@ export default ({ entities, onDeletePost, onEditList}) => {
 		              	</div>
 		            </div>
 		            <Button onClick={ () => onDeletePost(item._id) } type="danger">删除</Button>
-		            <Button onClick={ () => onEditList(item._id) }><NavLink to={ '/home/edit/' + item._id } >编辑</NavLink></Button>
-		            
+		            <Button ><NavLink to={ '/home/edit/' + item._id } >编辑</NavLink></Button>
+
 
 	            </div>
 	        	)
