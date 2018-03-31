@@ -7,7 +7,6 @@ import Welcome from './Welcome.js';
 import Sichuan from './Sichuan.js';
 import Guangdong from './Guangdong.js';
 
-import GuangdongItemEdit from './GuangdongItemEdit.js';
 import CuizineAdd from './CuisineAdd.js';
 import CuizineEdit from './CuisineEdit.js';
 import Jiangsu from './Jiangsu.js';
@@ -76,7 +75,7 @@ class Home extends Component {
 						<Switch>
 							<Route path='/home/sichuan' exact component={ Sichuan }></Route>
 							<Route path='/home/guangdong' exact component={ Guangdong }></Route>
-							<Route path='/home/itemedit' exact component={ GuangdongItemEdit}></Route>
+
 							<Route path='/home/add' exact component={ CuizineAdd }></Route>
 							<Route path='/home/edit/:cuisineID' exact component={ CuizineEdit }></Route>
 							<Route path='/home/jiangsu' exact component={ Jiangsu }></Route>
